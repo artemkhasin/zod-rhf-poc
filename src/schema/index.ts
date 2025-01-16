@@ -39,12 +39,29 @@ import formSchema from './form.json';
 // Convert JSON schema to Zod schema string and evaluate it
 const zodSchemaString = jsonSchemaToZod(formSchema);
 const zodSchema = new Function('z', `return ${zodSchemaString}`)(z);
+// console.log(zodSchema);
 
 // console.log(zodSchema);
 export { zodSchema };
 
-// Export the type
-export type FormData = z.infer<typeof zodSchema>;
+// Wrapper function to infer the type
+type InferZodSchema<T> = T extends z.ZodTypeAny ? z.infer<T> : never;
+export type FormData = InferZodSchema<typeof zodSchema>;
+
+
+const newData: FormData = {
+    id: "123",
+    code: "abc",
+    description: "Form description",
+    expiryDate: "2022-12-31T23:59:59Z",
+    active: true,
+    tags: ["Important", "Draft"],
+    some: "extra",
+    someOther: "extra",
+    someMore: "extra",
+}
+
+console.log('newData type:', typeof newData);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const schemaSample = z.object({
@@ -70,5 +87,21 @@ const schemaSample = z.object({
         .default(true),
     tags: z.array(z.string()).describe("List of tags for the form").optional(),
     })
-    .describe("Form schema for the application");
+    .describe("Form schema for the application 2");
+
+    // console.log(schemaSample);
+
+    type SchemaSample = z.infer<typeof schemaSample>;
+
+    const sampleData: SchemaSample = {
+        id: "123",
+        code: "abc",
+        description: "Form description",
+        expiryDate: "2022-12-31T23:59:59Z",
+        active: true,
+        tags: ["Important", "Draft"],
+        some: "extra",
+    }
+
+    console.log('sampleData type:', typeof sampleData);
 

@@ -14,8 +14,8 @@
       "example": "form123",
       "errorMessage": {
         "type": "ID must be a string",
-        "minLength": "ID must be at least 2 characters long",
-        "maxLength": "ID must be at most 30 characters long",
+        "minLength": "IDtoShort",
+        "maxLength": "IDtoLong",
         "required": "ID is a required field"
       }
     },

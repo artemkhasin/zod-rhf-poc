@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -22,6 +23,7 @@ import { FormData, zodSchema } from './schema';
 const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
 
 function App() {
+  const { t, i18n } = useTranslation();
   const {
     control,
     handleSubmit,
@@ -33,6 +35,10 @@ function App() {
       tags: [],
     },
   });
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const onSubmit = (data: FormData) => {
     console.log(data);
@@ -56,7 +62,7 @@ function App() {
                   label="ID"
                   fullWidth
                   error={!!errors.id}
-                  helperText={typeof errors.id?.message === 'string' ? errors.id?.message : undefined}
+                  helperText={typeof errors.id?.message === 'string' ? t(errors.id?.message) : undefined}
                 />
               )}
             />
@@ -81,7 +87,7 @@ function App() {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Description"
+                  label={t("Description")}
                   fullWidth
                   multiline
                   rows={3}
@@ -154,6 +160,9 @@ function App() {
             </Box>
           </form>
         </Paper>
+        <button onClick={() => changeLanguage('en')}>eng</button>
+        <br/>
+        <button onClick={() => changeLanguage('ru')}>ru</button>
       </div>
     </LocalizationProvider>
   );
