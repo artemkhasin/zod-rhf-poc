@@ -7,6 +7,8 @@
       "title": "ID",
       "description": "Unique identifier for the form",
       "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "required": true,
       "minLength": 2,
       "maxLength": 30,
       "example": "form123",
@@ -32,6 +34,7 @@
       "type": "string",
       "maxLength": 100,
       "example": "This is a sample form description.",
+      "required": true,
       "errorMessage": {
         "type": "Description must be a string",
         "maxLength": "Description must be at most 100 characters long",
