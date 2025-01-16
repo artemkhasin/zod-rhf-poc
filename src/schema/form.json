@@ -1,0 +1,80 @@
+{
+  "title": "Form",
+  "description": "Form schema for the application",
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "ID",
+      "description": "Unique identifier for the form",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 30,
+      "example": "form123",
+      "errorMessage": {
+        "type": "ID must be a string",
+        "minLength": "ID must be at least 2 characters long",
+        "maxLength": "ID must be at most 30 characters long",
+        "required": "ID is a required field"
+      }
+    },
+    "code": {
+      "title": "Code",
+      "description": "Unique code for the form",
+      "type": "string",
+      "example": "code456",
+      "errorMessage": {
+        "type": "Code must be a string"
+      }
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of the form",
+      "type": "string",
+      "maxLength": 100,
+      "example": "This is a sample form description.",
+      "errorMessage": {
+        "type": "Description must be a string",
+        "maxLength": "Description must be at most 100 characters long",
+        "required": "Description is a required field"
+      }
+    },
+    "expiryDate": {
+      "title": "Expiry Date",
+      "description": "Date when the form expires",
+      "type": "string",
+      "format": "date-time",
+      "example": "2023-12-31T23:59:59Z",
+      "errorMessage": {
+        "type": "Expiry Date must be a string",
+        "format": "Expiry Date must be in date-time format"
+      }
+    },
+    "active": {
+      "title": "Active",
+      "description": "Flag to indicate if the form is active",
+      "type": "boolean",
+      "default": true,
+      "example": true,
+      "errorMessage": {
+        "type": "Active must be a boolean"
+      }
+    },
+    "tags": {
+      "title": "Tags",
+      "description": "List of tags for the form",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "example": "tag1",
+        "errorMessage": {
+          "type": "Each tag must be a string"
+        }
+      },
+      "example": ["tag1", "tag2"],
+      "errorMessage": {
+        "type": "Tags must be an array"
+      }
+    }
+  },
+  "required": ["id", "description"]
+}
