@@ -1,29 +1,24 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  TextField,
-  Switch,
-  FormControlLabel,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   Box,
   Button,
   Typography,
   Paper,
 } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { FormData, zodSchema } from './schema';
+import JSONFormSchema from './schema/form.json';
+import { useFormFactory } from './components/hooks/useFormFactory';
+import { FormProperty } from './schema/types';
+import React from 'react';
 
-const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
+
 
 function App() {
   const { t, i18n } = useTranslation();
+  const { renderFormInput } = useFormFactory();
+  const {title, properties } = JSONFormSchema;
   const {
     control,
     handleSubmit,
@@ -45,126 +40,29 @@ function App() {
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-        <Paper className="p-8 w-full max-w-2xl">
-          <Typography variant="h4" component="h1" gutterBottom>
-            Form Example
-          </Typography>
-          
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <Controller
-              name="id"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="ID"
-                  fullWidth
-                  error={!!errors.id}
-                  helperText={typeof errors.id?.message === 'string' ? t(errors.id?.message) : undefined}
-                />
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <Paper className="p-8 w-full max-w-2xl">
+        <Typography variant="h4" component="h1" gutterBottom>
+          {t(title)}
+        </Typography>
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {Object.entries(properties).map(([key, property]: [string, FormProperty]) => 
+              <React.Fragment key={key}>
+                {renderFormInput(key, property, control, errors)}
+              </React.Fragment>
               )}
-            />
-
-            <Controller
-              name="code"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Code"
-                  fullWidth
-                  error={!!errors.code}
-                  helperText={typeof errors.code?.message === 'string' ? errors.code?.message : undefined}
-                />
-              )}
-            />
-
-            <Controller
-              name="description"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label={t("Description")}
-                  fullWidth
-                  multiline
-                  rows={3}
-                  error={!!errors.description}
-                  helperText={typeof errors.description?.message === 'string' ? errors.description?.message : undefined}
-                />
-              )}
-            />
-
-            <Controller
-              name="expiryDate"
-              control={control}
-              render={({ field }) => (
-                <DatePicker
-                  label="Expiry Date"
-                  {...field}
-                  slotProps={{
-                    textField: {
-                      fullWidth: true,
-                      error: !!errors.expiryDate,
-                      helperText: typeof errors.expiryDate?.message === 'string' ? errors.expiryDate?.message : undefined,
-                    },
-                  }}
-                />
-              )}
-            />
-
-            <Controller
-              name="active"
-              control={control}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label="Active"
-                />
-              )}
-            />
-
-            <Controller
-              name="tags"
-              control={control}
-              render={({ field }) => (
-                <FormControl fullWidth>
-                  <InputLabel>Tags</InputLabel>
-                  <Select
-                    {...field}
-                    multiple
-                    label="Tags"
-                    error={!!errors.tags}
-                  >
-                    {AVAILABLE_TAGS.map((tag) => (
-                      <MenuItem key={tag} value={tag}>
-                        {tag}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              )}
-            />
-
-            <Box className="pt-4">
-              <Button type="submit" variant="contained" color="primary">
-                Submit
-              </Button>
-            </Box>
-          </form>
-        </Paper>
-        <button onClick={() => changeLanguage('en')}>eng</button>
-        <br/>
-        <button onClick={() => changeLanguage('ru')}>ru</button>
-      </div>
-    </LocalizationProvider>
+          <Box className="pt-4">
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </Box>
+        </form>
+      </Paper>
+      <button onClick={() => changeLanguage('en')}>eng</button>
+      <br/>
+      <button onClick={() => changeLanguage('ru')}>ru</button>
+    </div>
   );
 }
 

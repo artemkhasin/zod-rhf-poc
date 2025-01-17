@@ -1,5 +1,5 @@
 {
-  "title": "Form",
+  "title": "FormExample",
   "description": "Form schema for the application",
   "type": "object",
   "properties": {
