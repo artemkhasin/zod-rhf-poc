@@ -3,6 +3,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TFunction } from 'i18next';
+import dayjs from "dayjs";
 
 interface FormDatePickerProps<T extends FieldValues> {
     name: string;
@@ -23,6 +24,8 @@ const FormDatePicker = <T extends FieldValues>({ name, label, control, errors, t
                 <DatePicker
                     label={t(label)}
                     {...field}
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(date) => field.onChange(date ? date.toISOString() : '')}
                     slotProps={{
                         textField: {
                             fullWidth: true,
