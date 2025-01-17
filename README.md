@@ -31,3 +31,6 @@ Open your browser and navigate to `http://localhost:3000` to see the application
 ## License
 
 This project is licensed under the MIT License.
+## Additional Resources
+
+This project utilizes the [json-schema-to-zod](https://www.npmjs.com/package/json-schema-to-zod) package for converting JSON schemas to Zod schemas.
