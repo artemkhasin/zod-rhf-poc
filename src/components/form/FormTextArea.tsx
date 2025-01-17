@@ -1,20 +1,20 @@
-import { Controller, Control, FieldErrors } from "react-hook-form";
+import { Controller, Control, FieldErrors, FieldValues, Path } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { TFunction } from "i18next";
 
-interface FormTextAreaProps {
+interface FormTextAreaProps<T extends FieldValues> {
         name: string;
         label: string;
-        control: Control;
-        errors: FieldErrors;
+        control: Control<T>;
+        errors: FieldErrors<T>;
         rows?: number;
         t: TFunction<"translation", undefined>
     }
 
-const FormTextArea: React.FC<FormTextAreaProps> = ({name, label, control, errors, rows = 4, t }) => {
+const FormTextArea = <T extends FieldValues>({name, label, control, errors, rows = 4, t }: FormTextAreaProps<T>) => {
   return (
     <Controller
-            name={name}
+            name={name as Path<T>}
             control={control}
             render={({ field }) => (
             <TextField

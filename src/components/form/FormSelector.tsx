@@ -1,20 +1,20 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { TFunction } from 'i18next';
-import { Controller, Control, FieldErrors } from 'react-hook-form';
+import { Controller, Control, FieldErrors, FieldValues, Path } from 'react-hook-form';
 
-interface FormSelectorProps {
+interface FormSelectorProps<T extends FieldValues> {
         name: string;
         label: string;
-        control: Control;
-        errors: FieldErrors;
+        control: Control<T>;
+        errors: FieldErrors<T>;
         tags: string[];
         t: TFunction<"translation", undefined>
     };
 
-const FormSelector: React.FC<FormSelectorProps> = ({ name, label, control, errors, tags, t }) => {
+const FormSelector = <T extends FieldValues>({ name, label, control, errors, tags, t }: FormSelectorProps<T>) => {
     return (
         <Controller
-        name={name}
+        name={name as Path<T>}
         control={control}
         render={({ field }) => (
             <FormControl fullWidth>
@@ -36,6 +36,5 @@ const FormSelector: React.FC<FormSelectorProps> = ({ name, label, control, error
         />
     );
 };
-
 
 export default FormSelector

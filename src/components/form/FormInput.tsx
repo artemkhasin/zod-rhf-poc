@@ -1,19 +1,19 @@
-import { Controller, Control, FieldErrors } from "react-hook-form";
+import { Controller, Control, FieldErrors, FieldValues, Path } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { TFunction } from "i18next";
 
-interface FormInputProps {
+interface FormInputProps<T extends FieldValues> {
         name: string;
         label: string;
-        control: Control;
-        errors: FieldErrors;
+        control: Control<T>;
+        errors: FieldErrors<T>;
         t: TFunction<"translation", undefined>
     };
 
-const FormInput: React.FC<FormInputProps> = ({name, label, control, errors, t}) => {
+const FormInput = <T extends FieldValues>({name, label, control, errors, t}: FormInputProps<T>) => {
   return (
     <Controller
-            name={name}
+            name={name as Path<T>}
             control={control}
             render={({ field }) => (
             <TextField

@@ -17,7 +17,7 @@ import React from 'react';
 
 function App() {
   const { t, i18n } = useTranslation();
-  const { renderFormInput } = useFormFactory();
+  const { renderFormInput } = useFormFactory<FormData>();
   const {title, properties } = JSONFormSchema;
   const {
     control,

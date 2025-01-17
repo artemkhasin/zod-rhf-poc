@@ -6,7 +6,7 @@ import {
     FormSelector  
 } from '../form'
 import { useTranslation } from 'react-i18next';
-import { Control, FieldErrors } from 'react-hook-form';
+import { Control, FieldErrors, FieldValues } from 'react-hook-form';
 import { FormProperty } from '../../schema/types';
 
 enum InputType {
@@ -18,9 +18,10 @@ enum InputType {
 }
 
 const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
-export const useFormFactory = () => {
+
+export const useFormFactory = <T extends FieldValues>() => {
     const { t } = useTranslation();
-    const renderFormInput = (name: string, property: FormProperty, control: Control, errors: FieldErrors) => {
+    const renderFormInput = (name: string, property: FormProperty, control: Control<T>, errors: FieldErrors<T>) => {
         const {inputType, title } = property;
         switch (inputType) {
             case InputType.STRING:
