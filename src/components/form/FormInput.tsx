@@ -22,6 +22,7 @@ const FormInput = <T extends FieldValues>({name, label, control, errors, t}: For
                 fullWidth
                 error={!!errors[name]}
                 helperText={typeof errors[name]?.message === 'string' ? t(errors[name]?.message) : undefined}
+                value={field.value || ''}
             />
             )}
         />

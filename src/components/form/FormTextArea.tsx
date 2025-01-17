@@ -24,6 +24,7 @@ const FormTextArea = <T extends FieldValues>({name, label, control, errors, rows
                 multiline
                 rows={rows}
                 error={!!errors[name]}
+                value={field.value || ''}
                 helperText={typeof errors[name]?.message === 'string' ? t(errors[name]?.message) : undefined}
             />
             )}
