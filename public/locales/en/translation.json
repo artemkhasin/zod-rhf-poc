@@ -6,5 +6,7 @@
     "ID": "ID",
     "Code": "Code",
     "ExpiryDate": "Expiry Date",
-    "Active": "Active"
+    "Active": "Active",
+    "Tags": "Tags",
+    "Required": "Required"
 }
