@@ -1,14 +1,16 @@
 import { Controller, Control, FieldErrors } from "react-hook-form";
 import { TextField } from "@mui/material";
+import { TFunction } from "i18next";
 
 interface FormInputProps {
         name: string;
         label: string;
         control: Control;
         errors: FieldErrors;
+        t: TFunction<"translation", undefined>
     };
 
-const FormInput: React.FC<FormInputProps> = ({name, label, control, errors}) => {
+const FormInput: React.FC<FormInputProps> = ({name, label, control, errors, t}) => {
   return (
     <Controller
             name={name}
@@ -16,10 +18,10 @@ const FormInput: React.FC<FormInputProps> = ({name, label, control, errors}) => 
             render={({ field }) => (
             <TextField
                 {...field}
-                label={label}
+                label={t(label)}
                 fullWidth
                 error={!!errors[name]}
-                helperText={typeof errors[name]?.message === 'string' ? errors[name]?.message : undefined}
+                helperText={typeof errors[name]?.message === 'string' ? t(errors[name]?.message) : undefined}
             />
             )}
         />

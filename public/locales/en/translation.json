@@ -1,6 +1,10 @@
 {
     "IDtoShort": "ID must be at least 2 characters long",
     "IDtoLong": "ID must be at most 30 characters long",
-    "Description": "Description this",
-    "FormExample": "Form Example"
+    "Description": "Description",
+    "FormExample": "Form Example",
+    "ID": "ID",
+    "Code": "Code",
+    "ExpiryDate": "Expiry Date",
+    "Active": "Active"
 }

@@ -1,14 +1,16 @@
 import { Controller, Control, FieldErrors } from "react-hook-form";
 import { FormControlLabel, Switch, FormHelperText } from "@mui/material";
+import { TFunction } from "i18next";
 
 interface FormToggleProps {
     name: string;
     label: string;
     control: Control;
     errors: FieldErrors;
+    t: TFunction<"translation", undefined>
 };
 
-const FormToggle: React.FC<FormToggleProps> = ({ name, label, control, errors }) => {
+const FormToggle: React.FC<FormToggleProps> = ({ name, label, control, errors, t }) => {
   return (
     <>
       <Controller
@@ -23,9 +25,9 @@ const FormToggle: React.FC<FormToggleProps> = ({ name, label, control, errors })
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e.target.checked)}
                 />
                 }
-                label={label}
+                label={t(label)}
             />
-            {errors[name] && <FormHelperText error>{String(errors[name]?.message)}</FormHelperText>}
+            {errors[name]?.message && <FormHelperText error>{String(t(errors[name]?.message as string))}</FormHelperText>}
           </>
           )}
       />

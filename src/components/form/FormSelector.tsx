@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { TFunction } from 'i18next';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 
 interface FormSelectorProps {
@@ -7,16 +8,17 @@ interface FormSelectorProps {
         control: Control;
         errors: FieldErrors;
         tags: string[];
+        t: TFunction<"translation", undefined>
     };
 
-const FormSelector: React.FC<FormSelectorProps> = ({ name, label, control, errors, tags }) => {
+const FormSelector: React.FC<FormSelectorProps> = ({ name, label, control, errors, tags, t }) => {
     return (
         <Controller
         name={name}
         control={control}
         render={({ field }) => (
             <FormControl fullWidth>
-            <InputLabel>{label}</InputLabel>
+            <InputLabel>{t(label)}</InputLabel>
             <Select
                 {...field}
                 multiple

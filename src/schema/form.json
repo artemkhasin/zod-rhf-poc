@@ -45,7 +45,7 @@
       }
     },
     "expiryDate": {
-      "title": "Expiry Date",
+      "title": "ExpiryDate",
       "description": "Date when the form expires",
       "inputType": "date",
       "type": "string",

@@ -2,5 +2,9 @@
     "IDtoShort": "ID должен быть не менее 2 символов",
     "IDtoLong": "ID должен быть не более 30 символов",
     "Description": "Описание",
-    "FormExample": "Пример формы"
+    "FormExample": "Пример формы",
+    "ID": "ID",
+    "Code": "Код",
+    "ExpiryDate": "Дата истечения",
+    "Active": "Активный"
 }

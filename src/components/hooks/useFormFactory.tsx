@@ -5,6 +5,7 @@ import {
     FormToggle, 
     FormSelector  
 } from '../form'
+import { useTranslation } from 'react-i18next';
 import { Control, FieldErrors } from 'react-hook-form';
 import { FormProperty } from '../../schema/types';
 
@@ -18,19 +19,20 @@ enum InputType {
 
 const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
 export const useFormFactory = () => {
+    const { t } = useTranslation();
     const renderFormInput = (name: string, property: FormProperty, control: Control, errors: FieldErrors) => {
         const {inputType, title } = property;
         switch (inputType) {
             case InputType.STRING:
-                return <FormInput name={name} label={title} control={control} errors={errors} />
+                return <FormInput name={name} label={title} control={control} errors={errors} t={t} />;
             case InputType.DATE_PICKER:
-                return <FormDatePicker name={name} label={title} control={control} errors={errors} />
+                return <FormDatePicker name={name} label={title} control={control} errors={errors} t={t} />
             case InputType.TEXT_AREA:
-                return <FormTextArea name={name} label={title} control={control} errors={errors} />
+                return <FormTextArea name={name} label={title} control={control} errors={errors} t={t} />
             case InputType.TOGGLE:
-                return <FormToggle name={name} label={title} control={control} errors={errors} />
+                return <FormToggle name={name} label={title} control={control} errors={errors} t={t} />
             case InputType.SELECTOR:
-                return <FormSelector name={name} label={title} control={control} errors={errors} tags={AVAILABLE_TAGS} />
+                return <FormSelector name={name} label={title} control={control} errors={errors} tags={AVAILABLE_TAGS} t={t} />
             default:
                 return null;
         }
