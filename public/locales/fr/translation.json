@@ -1,0 +1,14 @@
+{
+    "IDtoShort": "L'ID doit comporter au moins 2 caractères",
+    "IDtoLong": "L'ID doit comporter au maximum 30 caractères",
+    "Description": "Description",
+    "FormExample": "Exemple de formulaire",
+    "ID": "ID",
+    "Code": "Code",
+    "ExpiryDate": "Date d'expiration",
+    "Active": "Actif",
+    "Tags": "Étiquettes",
+    "Required": "Requis",
+    "Language": "Langue",
+    "Submit": "Soumettre"
+}

@@ -8,5 +8,7 @@
     "ExpiryDate": "Expiry Date",
     "Active": "Active",
     "Tags": "Tags",
-    "Required": "Required"
+    "Required": "Required",
+    "Language": "Language",
+    "Submit": "Submit"
 }

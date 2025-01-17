@@ -12,11 +12,12 @@ import JSONFormSchema from './schema/form.json';
 import { useFormFactory } from './components/hooks/useFormFactory';
 import { FormProperty } from './schema/types';
 import React from 'react';
+import LanguageSelector from './components/languageSelector/LanguageSelector';
 
 
 
 function App() {
-  const { t, i18n } = useTranslation();
+  const { t  } = useTranslation();
   const { renderFormInput } = useFormFactory<FormData>();
   const {title, properties } = JSONFormSchema;
   const {
@@ -30,10 +31,6 @@ function App() {
       tags: [],
     },
   });
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
 
   const onSubmit = (data: FormData) => {
     console.log(data);
@@ -54,14 +51,12 @@ function App() {
               )}
           <Box className="pt-4">
             <Button type="submit" variant="contained" color="primary">
-              Submit
+              {t('Submit')}
             </Button>
           </Box>
         </form>
       </Paper>
-      <button onClick={() => changeLanguage('en')}>eng</button>
-      <br/>
-      <button onClick={() => changeLanguage('ru')}>ru</button>
+      <LanguageSelector />
     </div>
   );
 }
