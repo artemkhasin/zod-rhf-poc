@@ -36,7 +36,7 @@ function App() {
     },
   });
 
-  const changeLanguage = (lng) => {
+  const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 

@@ -38,33 +38,21 @@ import formSchema from './form.json';
 
 // Convert JSON schema to Zod schema string and evaluate it
 const zodSchemaString = jsonSchemaToZod(formSchema);
-const zodSchema = new Function('z', `return ${zodSchemaString}`)(z);
+const zodSchema_runtime = new Function('z', `return ${zodSchemaString}`)(z);
 // console.log(zodSchema);
 
 // console.log(zodSchema);
-export { zodSchema };
+export { zodSchema_runtime };
 
 // Wrapper function to infer the type
 type InferZodSchema<T> = T extends z.ZodTypeAny ? z.infer<T> : never;
-export type FormData = InferZodSchema<typeof zodSchema>;
+export type FormData_runtime = InferZodSchema<typeof zodSchema>;
 
+// ! the schema can be defined during the run time but there is a problem with inferring to TS type
+// ! the type is always any
+// ! the solution is to define the schema manually below for this POC
 
-const newData: FormData = {
-    id: "123",
-    code: "abc",
-    description: "Form description",
-    expiryDate: "2022-12-31T23:59:59Z",
-    active: true,
-    tags: ["Important", "Draft"],
-    some: "extra",
-    someOther: "extra",
-    someMore: "extra",
-}
-
-console.log('newData type:', typeof newData);
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const schemaSample = z.object({
+export const zodSchema = z.object({
     id: z
         .string()
         .regex(new RegExp("^[A-Za-z0-9_-]+$"))
@@ -91,17 +79,14 @@ const schemaSample = z.object({
 
     // console.log(schemaSample);
 
-    type SchemaSample = z.infer<typeof schemaSample>;
+    export type FormData = z.infer<typeof zodSchema>;
 
-    const sampleData: SchemaSample = {
-        id: "123",
-        code: "abc",
-        description: "Form description",
-        expiryDate: "2022-12-31T23:59:59Z",
-        active: true,
-        tags: ["Important", "Draft"],
-        some: "extra",
-    }
-
-    console.log('sampleData type:', typeof sampleData);
+    // const sampleData: SchemaSample = {
+    //     id: "123",
+    //     code: "abc",
+    //     description: "Form description",
+    //     expiryDate: "2022-12-31T23:59:59Z",
+    //     active: true,
+    //     tags: ["Important", "Draft"],
+    // }
 
