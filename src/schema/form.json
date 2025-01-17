@@ -6,6 +6,7 @@
     "id": {
       "title": "ID",
       "description": "Unique identifier for the form",
+      "inputType": "input",
       "type": "string",
       "pattern": "^[A-Za-z0-9_-]+$",
       "required": true,
@@ -22,6 +23,7 @@
     "code": {
       "title": "Code",
       "description": "Unique code for the form",
+      "inputType": "input",
       "type": "string",
       "example": "code456",
       "errorMessage": {
@@ -31,6 +33,7 @@
     "description": {
       "title": "Description",
       "description": "Description of the form",
+      "inputType": "textarea",
       "type": "string",
       "maxLength": 100,
       "example": "This is a sample form description.",
@@ -44,6 +47,7 @@
     "expiryDate": {
       "title": "Expiry Date",
       "description": "Date when the form expires",
+      "inputType": "date",
       "type": "string",
       "format": "date-time",
       "example": "2023-12-31T23:59:59Z",
@@ -55,6 +59,7 @@
     "active": {
       "title": "Active",
       "description": "Flag to indicate if the form is active",
+      "inputType": "toggle",
       "type": "boolean",
       "default": true,
       "example": true,
@@ -65,6 +70,7 @@
     "tags": {
       "title": "Tags",
       "description": "List of tags for the form",
+      "inputType": "selector",
       "type": "array",
       "items": {
         "type": "string",
