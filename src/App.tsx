@@ -14,6 +14,10 @@ function App() {
   const { t  } = useTranslation();
   const {title, properties } = JSONFormSchema;
 
+  const handleFormSubmission = (data: FormData) => {
+    console.trace('Here is submitted the data', data);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <Paper className="p-8 w-full max-w-2xl">
@@ -27,6 +31,7 @@ function App() {
             active: true,
             tags: [],
           }}
+          submitFunction={handleFormSubmission}
         />
       </Paper>
       <LanguageSelector />

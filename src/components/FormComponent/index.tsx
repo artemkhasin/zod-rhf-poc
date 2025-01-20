@@ -11,6 +11,7 @@ import FormToggle from "./FormToggle";
 import FormSelector from "./FormSelector";
 import { FormProperty } from "../../schema/types";
 
+// Enum for different input types
 enum InputType {
     STRING = 'input',
     DATE_PICKER = 'date',
@@ -19,18 +20,32 @@ enum InputType {
     SELECTOR = 'selector'
 }
 
+/**
+ * Props for the FormComponent
+ * 
+ * @template U - The type of the form values, extending FieldValues from react-hook-form
+ */
 interface FormComponentProps<U extends FieldValues> {
     ZodFormSchema: z.ZodTypeAny,
     JSONFormSchemaProperties: { [key: string]: FormProperty  },
     defaultValues?: DefaultValues<U>
+    submitFunction: (data: U) => void
 }
 
 const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
 
+/**
+ * FormComponent - A reusable form component that uses react-hook-form and Zod for validation
+ * 
+ * @template U - The type of the form values, extending FieldValues from react-hook-form
+ * @param {FormComponentProps<U>} props - The props for the component
+ * @returns {JSX.Element} The rendered form component
+ */
 export const FormComponent = <U extends FieldValues,>({
     ZodFormSchema, 
     JSONFormSchemaProperties, 
-    defaultValues
+    defaultValues,
+    submitFunction
 }: FormComponentProps<U>) => {
     
     const {
@@ -45,7 +60,9 @@ export const FormComponent = <U extends FieldValues,>({
     const { t } = useTranslation();
 
     const onSubmit = (data: U) => {
-        console.log(data);
+        if(submitFunction) {
+            submitFunction(data);
+        }
     };
     
     const renderFormInput = (name: string, property: FormProperty, control: Control<U>, errors: FieldErrors<U>) => {
