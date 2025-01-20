@@ -6,14 +6,13 @@ import {
 import { zodSchema, type FormData } from './schema';
 import JSONFormSchema from './schema/form.json';
 import LanguageSelector from './components/languageSelector/LanguageSelector';
-import { FormComponent } from './components/form';
+import { FormComponent } from './components/FormComponent';
 
 
 
 function App() {
   const { t  } = useTranslation();
   const {title, properties } = JSONFormSchema;
-  console.log(properties);
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -24,6 +23,10 @@ function App() {
         <FormComponent<FormData> 
           ZodFormSchema={zodSchema} 
           JSONFormSchemaProperties={properties} 
+          defaultValues={{
+            active: true,
+            tags: [],
+          }}
         />
       </Paper>
       <LanguageSelector />

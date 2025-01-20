@@ -2,7 +2,7 @@ import React from "react";
 import { z } from "zod";
 import { Button, Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useForm, Control, FieldErrors } from "react-hook-form";
+import { useForm, Control, FieldErrors, FieldValues, DefaultValues } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormInput from "./FormInput";
 import FormDatePicker from "./FormDatePicker";
@@ -10,14 +10,6 @@ import FormTextArea from "./FormTextArea";
 import FormToggle from "./FormToggle";
 import FormSelector from "./FormSelector";
 import { FormProperty } from "../../schema/types";
-
-export { 
-    FormInput, 
-    FormDatePicker, 
-    FormTextArea, 
-    FormToggle, 
-    FormSelector 
-};
 
 enum InputType {
     STRING = 'input',
@@ -27,14 +19,19 @@ enum InputType {
     SELECTOR = 'selector'
 }
 
-interface FormComponentProps<U> {
+interface FormComponentProps<U extends FieldValues> {
     ZodFormSchema: z.ZodTypeAny,
     JSONFormSchemaProperties: { [key: string]: FormProperty  },
+    defaultValues?: DefaultValues<U>
 }
 
 const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
 
-export const FormComponent = ({ZodFormSchema, JSONFormSchemaProperties }: FormComponentProps<U>) => {
+export const FormComponent = <U extends FieldValues,>({
+    ZodFormSchema, 
+    JSONFormSchemaProperties, 
+    defaultValues
+}: FormComponentProps<U>) => {
     
     const {
             control,
@@ -42,10 +39,7 @@ export const FormComponent = ({ZodFormSchema, JSONFormSchemaProperties }: FormCo
             formState: { errors },
         } = useForm<U>({
             resolver: zodResolver(ZodFormSchema),
-            defaultValues: {
-                active: true,
-                tags: [],
-            },
+            defaultValues: defaultValues,
     });
 
     const { t } = useTranslation();
