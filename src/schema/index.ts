@@ -56,8 +56,8 @@ export const zodSchema = z.object({
     id: z
         .string()
         .regex(new RegExp("^[A-Za-z0-9_-]+$"))
-        .min(2, "ID must be at least 2 characters long")
-        .max(30, "ID must be at most 30 characters long")
+        .min(2, "IDtoShort")
+        .max(30, "IDtoLong")
         .describe("Unique identifier for the form"),
     code: z.string().describe("Unique code for the form").optional(),
     description: z
