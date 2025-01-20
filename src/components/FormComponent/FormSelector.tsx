@@ -24,6 +24,7 @@ const FormSelector = <T extends FieldValues>({ name, label, control, errors, tag
                 multiple
                 label={label}
                 error={!!errors[name]}
+                value={field.value || []}
             >
                 {tags.map((tag) => (
                 <MenuItem key={tag} value={tag}>
