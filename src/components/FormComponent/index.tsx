@@ -23,13 +23,13 @@ enum InputType {
 /**
  * Props for the FormComponent
  * 
- * @template U - The type of the form values, extending FieldValues from react-hook-form
+ * @template GenericFormType - The type of the form values, extending FieldValues from react-hook-form
  */
-interface FormComponentProps<U extends FieldValues> {
+interface FormComponentProps<GenericFormType extends FieldValues> {
     ZodFormSchema: z.ZodTypeAny,
     JSONFormSchemaProperties: { [key: string]: FormProperty  },
-    defaultValues?: DefaultValues<U>
-    submitFunction: (data: U) => void,
+    defaultValues?: DefaultValues<GenericFormType>
+    submitFunction: (data: GenericFormType) => void,
     textAreaRows?: number
 }
 
@@ -38,36 +38,36 @@ const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
 /**
  * FormComponent - A reusable form component that uses react-hook-form and Zod for validation
  * 
- * @template U - The type of the form values, extending FieldValues from react-hook-form
- * @param {FormComponentProps<U>} props - The props for the component
+ * @template GenericFormType - The type of the form values, extending FieldValues from react-hook-form
+ * @param {FormComponentProps<GenericFormType>} props - The props for the component
  * @returns {JSX.Element} The rendered form component
  */
-export const FormComponent = <U extends FieldValues,>({
+export const FormComponent = <GenericFormType extends FieldValues,>({
     ZodFormSchema, 
     JSONFormSchemaProperties, 
     defaultValues,
     submitFunction,
     textAreaRows
-}: FormComponentProps<U>): JSX.Element => {
+}: FormComponentProps<GenericFormType>): JSX.Element => {
     
     const {
             control,
             handleSubmit,
             formState: { errors },
-        } = useForm<U>({
+        } = useForm<GenericFormType>({
             resolver: zodResolver(ZodFormSchema),
             defaultValues: defaultValues,
     });
 
     const { t } = useTranslation();
 
-    const onSubmit = (data: U) => {
+    const onSubmit = (data: GenericFormType) => {
         if(submitFunction) {
             submitFunction(data);
         }
     };
     
-    const renderFormInput = (name: string, property: FormProperty, control: Control<U>, errors: FieldErrors<U>) => {
+    const renderFormInput = (name: string, property: FormProperty, control: Control<GenericFormType>, errors: FieldErrors<GenericFormType>) => {
         const {inputType, title } = property;
         switch (inputType) {
             case InputType.STRING:
