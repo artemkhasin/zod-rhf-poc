@@ -29,7 +29,8 @@ interface FormComponentProps<U extends FieldValues> {
     ZodFormSchema: z.ZodTypeAny,
     JSONFormSchemaProperties: { [key: string]: FormProperty  },
     defaultValues?: DefaultValues<U>
-    submitFunction: (data: U) => void
+    submitFunction: (data: U) => void,
+    textAreaRows?: number
 }
 
 const AVAILABLE_TAGS = ['Important', 'Urgent', 'Review', 'Draft', 'Final'];
@@ -45,8 +46,9 @@ export const FormComponent = <U extends FieldValues,>({
     ZodFormSchema, 
     JSONFormSchemaProperties, 
     defaultValues,
-    submitFunction
-}: FormComponentProps<U>) => {
+    submitFunction,
+    textAreaRows
+}: FormComponentProps<U>): JSX.Element => {
     
     const {
             control,
@@ -73,7 +75,7 @@ export const FormComponent = <U extends FieldValues,>({
             case InputType.DATE_PICKER:
                 return <FormDatePicker name={name} label={title} control={control} errors={errors} t={t} />
             case InputType.TEXT_AREA:
-                return <FormTextArea name={name} label={title} control={control} errors={errors} t={t} />
+                return <FormTextArea name={name} label={title} control={control} errors={errors} t={t} rows={textAreaRows} />
             case InputType.TOGGLE:
                 return <FormToggle name={name} label={title} control={control} errors={errors} t={t} />
             case InputType.SELECTOR:
